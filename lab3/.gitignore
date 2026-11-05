@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+data/
+intel.zip
+runs/*/model.pt
+runs_rerun/
+lab3_model_rerun.pt
