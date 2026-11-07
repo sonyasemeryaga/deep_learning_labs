@@ -1,0 +1,89 @@
+{
+  "regime": "scratch",
+  "seed": 1,
+  "transforms": {
+    "train": "Compose(\n    RandomResizedCrop(size=(160, 160), scale=(0.7, 1.0), ratio=(0.75, 1.3333), interpolation=bilinear, antialias=True)\n    RandomHorizontalFlip(p=0.5)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)",
+    "validation_test": "Compose(\n    Resize(size=(160, 160), interpolation=bilinear, max_size=None, antialias=True)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)"
+  },
+  "model": {
+    "architecture": "torchvision.models.resnet18",
+    "weights": null,
+    "head": "Linear(in_features=512, out_features=6, bias=True)",
+    "eval_during_training": [],
+    "batch_norm": {
+      "momentum": 0.1,
+      "eps": 1e-05
+    }
+  },
+  "optimizer": {
+    "type": "AdamW",
+    "defaults": {
+      "lr": 0.001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.0001,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": null,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "decoupled_weight_decay": true
+    },
+    "groups": [
+      {
+        "params": 11179590,
+        "lr": 0.003,
+        "weight_decay": 0.0001
+      }
+    ]
+  },
+  "loop": {
+    "epochs": 8,
+    "steps": 304,
+    "loss": "CrossEntropyLoss()",
+    "train_loader": {
+      "batch_size": 32,
+      "shuffle": true,
+      "drop_last": false,
+      "num_workers": 0
+    },
+    "eval_loader": {
+      "batch_size": 64,
+      "shuffle": false,
+      "num_workers": 0
+    }
+  },
+  "git_commit": "d95e512c832c54cdf941ea38da63a0c6852fc1e2",
+  "git_uncommitted_changes": false,
+  "split_sha256": "148dad92de9a18670c177df9f8757aa6519fb0ea6d74a8ba723cfc4453f0a1bc",
+  "python": "3.12.14",
+  "torch": "2.14.1",
+  "torchvision": "0.29.2",
+  "device": "mps",
+  "platform": "macOS-26.5-arm64-arm-64bit",
+  "train_loss": [
+    1.6484777704874674,
+    1.2379127073287963,
+    1.1860647026697795,
+    1.103611373901367,
+    1.0930431270599366,
+    1.0395488556226093,
+    1.0225360536575316,
+    0.9894191916783651
+  ],
+  "val_macro_f1": [
+    0.2782994263824884,
+    0.3893953271019526,
+    0.49588466338451664,
+    0.48410789874496496,
+    0.40351720657041484,
+    0.4693692676492791,
+    0.4922907857097609,
+    0.4266398942790739
+  ],
+  "train_time_s": 127.24222279104288
+}

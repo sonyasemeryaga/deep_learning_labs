@@ -6,3 +6,4 @@ intel.zip
 runs/*/model.pt
 runs_rerun/
 lab3_model_rerun.pt
+analysis_rerun/

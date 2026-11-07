@@ -9,6 +9,7 @@ import torch
 from torch import nn
 from data import CLASSES, IMAGENET_MEAN, IMAGENET_STD, make_loader, read_split
 from model import FROZEN, TOP_MODULES, build_model, get_device, set_train_mode
+from model import report as parameters_report
 
 N_STEPS = 5
 BN_LAYER = "layer1.0.bn1"
@@ -89,8 +90,9 @@ def report(data_root, split, device, out=Path("figures")):
     for regime in ["scratch", "frozen"]:
         loss, spread = initial_loss(regime, data_root, split, device)
         print(f"{regime:9} {loss:>8.4f} {loss - math.log(6):>+10.4f} {spread:>12.4f}")
+    print("\nПараметри та групи оптимізатора, зерно 1:")
+    ok = parameters_report()
     print(f"\nЩо змінюється за {N_STEPS} кроків оптимізатора з set_train_mode:")
-    ok = True
     for regime in ["frozen", "unfreeze"]:
         model, before, after = run_steps(regime, data_root, split, device)
         rows = change_table(model, before, after, regime)

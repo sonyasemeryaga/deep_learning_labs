@@ -1,0 +1,100 @@
+{
+  "regime": "unfreeze",
+  "seed": 3,
+  "transforms": {
+    "train": "Compose(\n    RandomResizedCrop(size=(160, 160), scale=(0.7, 1.0), ratio=(0.75, 1.3333), interpolation=bilinear, antialias=True)\n    RandomHorizontalFlip(p=0.5)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)",
+    "validation_test": "Compose(\n    Resize(size=(160, 160), interpolation=bilinear, max_size=None, antialias=True)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)"
+  },
+  "model": {
+    "architecture": "torchvision.models.resnet18",
+    "weights": "ResNet18_Weights.IMAGENET1K_V1",
+    "head": "Linear(in_features=512, out_features=6, bias=True)",
+    "eval_during_training": [
+      "conv1",
+      "bn1",
+      "layer1",
+      "layer2",
+      "layer3"
+    ],
+    "batch_norm": {
+      "momentum": 0.1,
+      "eps": 1e-05
+    }
+  },
+  "optimizer": {
+    "type": "AdamW",
+    "defaults": {
+      "lr": 0.001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.0001,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": null,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "decoupled_weight_decay": true
+    },
+    "groups": [
+      {
+        "params": 3078,
+        "lr": 0.003,
+        "weight_decay": 0.0001
+      },
+      {
+        "params": 8393728,
+        "lr": 0.0003,
+        "weight_decay": 0.0001
+      }
+    ]
+  },
+  "loop": {
+    "epochs": 8,
+    "steps": 304,
+    "loss": "CrossEntropyLoss()",
+    "train_loader": {
+      "batch_size": 32,
+      "shuffle": true,
+      "drop_last": false,
+      "num_workers": 0
+    },
+    "eval_loader": {
+      "batch_size": 64,
+      "shuffle": false,
+      "num_workers": 0
+    }
+  },
+  "git_commit": "d95e512c832c54cdf941ea38da63a0c6852fc1e2",
+  "git_uncommitted_changes": false,
+  "split_sha256": "148dad92de9a18670c177df9f8757aa6519fb0ea6d74a8ba723cfc4453f0a1bc",
+  "python": "3.12.14",
+  "torch": "2.14.1",
+  "torchvision": "0.29.2",
+  "device": "mps",
+  "platform": "macOS-26.5-arm64-arm-64bit",
+  "train_loss": [
+    0.5303054326772689,
+    0.20598781893650692,
+    0.11757950276136399,
+    0.09850334167480469,
+    0.07318179665754239,
+    0.06468222832307219,
+    0.07256434293774267,
+    0.0837850003503263
+  ],
+  "val_macro_f1": [
+    0.8080700474116616,
+    0.8983598268878427,
+    0.8821857161707446,
+    0.9064162249234817,
+    0.8937234725899742,
+    0.8855350265748835,
+    0.8885046926759897,
+    0.9050268521067166
+  ],
+  "train_time_s": 46.84020791694638
+}
